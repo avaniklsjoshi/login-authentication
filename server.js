@@ -4,7 +4,7 @@ var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
-var passport = require('passport');
+var passport = require('passport'); //The path of our passport object is important to note here. We will create it at the very beginning of the file with var passport = require('passport');. Then we pass it into our config/passport.js file for it to be configured. Then we pass it to the app/routes.js file for it to be used in our routes.
 var flash    = require('connect-flash');
 
 var morgan       = require('morgan');
