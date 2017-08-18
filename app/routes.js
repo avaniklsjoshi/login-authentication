@@ -25,8 +25,19 @@ module.exports = function(app, passport) {
       });
   
       // process the signup form
-      // app.post('/signup', do all our passport stuff here);
-  
+      app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+      }));
+      
+       // process the login form
+      app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+      }));
+      
       /**
        * PROFILE SECTION
        * we will want this protected so you have to be logged in to visit
@@ -62,4 +73,7 @@ module.exports = function(app, passport) {
 isLoggedIn: Using route middleware, we can protect the profile section route. A user has to be logged in to access that route. Using the isLoggedIn function, we will kick a user back to the home page if they try to access http://localhost:8080/profile and they are not logged in.
 
 Logout: We will handle logout by using req.logout() provided by passport. After logging out, redirect the user to the home page.
-   */
+    All of the heavy duty stuff lives inside of config/passport.js. All we have to set here is where our failures and successes get redirected. Super clean.
+    
+    
+    */
