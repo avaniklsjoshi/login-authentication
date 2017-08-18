@@ -6,7 +6,7 @@ var bcrypt   = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
 
     local            : {
-        email        : String,
+        email        : String,    //passport-local actually uses username by default but we'll change that to email
         password     : String,
     },
     facebook         : {
@@ -43,3 +43,6 @@ userSchema.methods.validPassword = function(password) {
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
+/**
+ * We will be hashing our password within our user model before it saves to the database. This means we don't have to deal with generating the hash ourselves. It is all handled nicely and neatly inside our user model.
+ */
